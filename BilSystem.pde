@@ -4,13 +4,13 @@ class BilSystem {
   BilSystem(int antalbiler) { //constructør som kun bruges 1 gang, til at danne 200 helt tilfældige biler
     neuralvarians = neuralsliding;
     for (int i = 0; i < antalbiler; i++) { //kører igennem alle de biler der skal laves
-      float[] weights = new float[8];
-      float[] biass = new float[3];
+      float[] weights = new float[21];
+      float[] biass = new float[4];
       for (int j = 0; j < weights.length+biass.length-1; j++) { //et for loop der generer tilfælde værdier til det neurale netværk basseret på den neurale varians
-        if (j < 8) {
+        if (j < weights.length) {
           weights[j] = random(-neuralvarians, neuralvarians);
         } else {
-          biass[j-8] = random(-neuralvarians, neuralvarians);
+          biass[j-weights.length] = random(-neuralvarians, neuralvarians);
         }
       }
 

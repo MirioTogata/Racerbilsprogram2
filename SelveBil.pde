@@ -12,7 +12,7 @@ class SelveBil { //klasse der styrer alting for den ene bil. Dette er HELE bilen
   void update() { //main updatering
     bil.update(); //updater bilens location
     sensor.update(bil.pos, bil.vel); //updater så sensorene om de ser noget
-    bil.turn(neuralNet.output(sensor.leftsensor, sensor.rightsensor, sensor.frontsensor)); //drej ift. hvad sensorene ser
+    bil.turn(neuralNet.output(sensor.leftBlackSensor, sensor.rightBlackSensor, sensor.leftGreenSensor,sensor.rightGreenSensor,sensor.leftRedSensor,sensor.rightRedSensor)); //drej ift. hvad sensorene ser
     if (slut == true) { //hvis bilen har vundet
       contenders.add(new SelveBil(neuralNet.vaegt,neuralNet.bias)); //tilføj den til vinderene
       slut = true; //ændrer boolean til sandt, som senere sletter den fra hovedsystemet
