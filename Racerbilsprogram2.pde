@@ -5,7 +5,7 @@ boolean stagePicked = false;
 int pickedStage = 0;
 float neuralvarians = 2;
 int antalbiler = 200;
-int levetiden = 10;
+int levetiden = 15;
 float MutationsRate = 25;
 float FriktionAddition = 0.4;
 int SensorLength = 35;
@@ -16,9 +16,9 @@ BilSystem bilSystemet; //Laver mit hovedbilsystem som styrer "alt"
 void setup() {
   size(1000, 1000);
   cp5 = new ControlP5(this);
-  neuralslider = cp5.addSlider("neuralvarians").setPosition(100, 170).setRange(0, 4).setSize(200, 30).setNumberOfTickMarks(41);
-  bilslider = cp5.addSlider("antalbiler").setPosition(400, 170).setRange(50, 350).setSize(200, 30);
-  levetid = cp5.addSlider("levetiden").setPosition(700, 170).setRange(5, 20).setSize(200, 30);
+  neuralslider = cp5.addSlider("neuralvarians").setPosition(100, 170).setRange(0, 4).setSize(200, 30).setNumberOfTickMarks(41).setColorCaptionLabel(1);
+  bilslider = cp5.addSlider("antalbiler").setPosition(400, 170).setRange(50, 350).setSize(200, 30).setColorCaptionLabel(1);
+  levetid = cp5.addSlider("levetiden").setPosition(700, 170).setRange(10, 30).setSize(200, 30).setColorCaptionLabel(1);
   SettingsScreen();
 }
 
@@ -38,10 +38,16 @@ void draw() {
 
 void SettingsScreen() {
   background(50);
+  fill(0);
+  rect(75, 120, 850, 100);
   fill(255);
+  textSize(25);
+  text("Neural Varians", 115, 155);
+  text("Antal Biler", 435, 155);
+  text("Levetiden", 745, 155);
   textSize(50);
-  text("Venstre-klik på banen du vil bruge:", 70, 300);
-  text("Vælg dine start-parametre:", 70, 100);
+  text("Venstre-klik på banen du vil bruge", 70, 300);
+  text("Vælg dine start-parametre", 70, 80);
   for (int i = 0; i <= 5; i++) {
     bane = loadImage("Bane" + (i+1) +".png");
     bane.resize(250, 0);
@@ -68,9 +74,9 @@ void mousePressed() {
           neuralslider.setVisible(false);
           bilslider.setVisible(false);
           levetid.setVisible(false);
-          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 50).setRange(3, 50).setSize(200, 30);
-          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 50).setRange(0, 1).setSize(200, 30);
-          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 50).setRange(10, 60).setSize(200, 30);
+          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 50).setRange(3, 50).setSize(200, 30).setColorCaptionLabel(1);
+          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 50).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
+          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 50).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
           stagePicked = true;
           time = millis();
           break;
