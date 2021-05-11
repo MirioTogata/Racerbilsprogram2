@@ -50,8 +50,6 @@ class BilSystem {
         }
       }
     }
-    println(BilListe.size());
-    println(foraeldre.size());
 
     for (int i = bilSystemet.BilListe.size()-1; i >=0; i--) { //for loop der sletter alle de gamle
       bilSystemet.BilListe.remove(i);

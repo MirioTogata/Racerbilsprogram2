@@ -9,6 +9,7 @@ int levetiden = 10;
 float MutationsRate = 25;
 float FriktionAddition = 0.4;
 int SensorLength = 35;
+int time = 0;
 Slider neuralslider, bilslider, levetid, Mutationslider, Friktionslider, SensorLengthslider;
 BilSystem bilSystemet; //Laver mit hovedbilsystem som styrer "alt"
 
@@ -27,9 +28,13 @@ void draw() {
     image(bane, 50, 100);
     checkpoints();
     bilSystemet.run(); //kører alting for bilerne der skal køres
+    if ((millis()-time) > levetiden*1000) {
+      if (second() % levetiden == 0) {
+        bilSystemet.nextgeneration();
+      }
+    }
   }
 }
-
 
 void SettingsScreen() {
   background(50);
@@ -63,10 +68,11 @@ void mousePressed() {
           neuralslider.setVisible(false);
           bilslider.setVisible(false);
           levetid.setVisible(false);
-          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 50).setRange(3,50).setSize(200, 30);
+          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 50).setRange(3, 50).setSize(200, 30);
           Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 50).setRange(0, 1).setSize(200, 30);
           SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 50).setRange(10, 60).setSize(200, 30);
           stagePicked = true;
+          time = millis();
           break;
         }
       }
