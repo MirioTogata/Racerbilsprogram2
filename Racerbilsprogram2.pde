@@ -66,7 +66,7 @@ void mousePressed() {
           levetid.setVisible(false);
           Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 50).setRange(0, 10).setSize(200, 30);
           Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 50).setRange(0, 1).setSize(200, 30);
-          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 50).setRange(10, 40).setSize(200, 30);
+          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 50).setRange(10, 60).setSize(200, 30);
           stagePicked = true;
           break;
         }
@@ -76,12 +76,28 @@ void mousePressed() {
 }
 
 void checkpoints() {
+  strokeWeight(8);
+  stroke(250, 250, 30);
   if (pickedStage == 1) {
   } else if (pickedStage == 2) {
   } else if (pickedStage == 3) {
   } else if (pickedStage == 4) {
+    line(200, 674, 322, 622);
+    line(410, 432, 500, 333);
+    line(475, 260, 502, 162);
   } else if (pickedStage == 5) {
+    line(85, 375, 210, 375);
+    line(415, 540, 593, 540);
+    line(85, 580, 215, 580);
+    line(718, 570, 845, 577);
   } else if (pickedStage == 6) {
+    line(186, 323, 275, 226);
+    line(341, 452, 400, 322);
+    line(450, 566, 558, 458);
+    line(580, 750, 735, 600);
   } else {
     println("what da hec");
   }
+  strokeWeight(1);
+  stroke(0);
+}
