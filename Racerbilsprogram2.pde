@@ -2,13 +2,14 @@ import controlP5.*;
 ControlP5 cp5;
 PImage bane; 
 boolean stagePicked = false;
+int pickedStage = 0;
 float neuralvarians = 2;
 int antalbiler = 200;
 int levetiden = 10;
 float MutationsRate = 2;
 float FriktionAddition = 0.4;
 int SensorLength = 25;
-Slider neuralslider, bilslider,levetid,Mutationslider,Friktionslider,SensorLengthslider;
+Slider neuralslider, bilslider, levetid, Mutationslider, Friktionslider, SensorLengthslider;
 BilSystem bilSystemet; //Laver mit hovedbilsystem som styrer "alt"
 ArrayList<SelveBil> contenders = new ArrayList<SelveBil>(); //Laver en liste med dem som vinder, altså bliver listen langsomt større
 
@@ -24,8 +25,8 @@ void setup() {
 void draw() {
   if (stagePicked) {
     image(bane, 50, 100);
+    checkpoints();
     bilSystemet.run(); //kører alting for bilerne der skal køres
-    println(mouseX + " " + mouseY);
   }
 }
 
@@ -57,6 +58,7 @@ void mousePressed() {
         if (mouseY > 350) {
           bane = loadImage("Bane" + i +".png");
           bane.resize(900, 0);
+          pickedStage = i;
           bilSystemet = new BilSystem(antalbiler);
           background(0);
           neuralslider.setVisible(false);
@@ -72,3 +74,14 @@ void mousePressed() {
     }
   }
 }
+
+void checkpoints() {
+  if (pickedStage == 1) {
+  } else if (pickedStage == 2) {
+  } else if (pickedStage == 3) {
+  } else if (pickedStage == 4) {
+  } else if (pickedStage == 5) {
+  } else if (pickedStage == 6) {
+  } else {
+    println("what da hec");
+  }
