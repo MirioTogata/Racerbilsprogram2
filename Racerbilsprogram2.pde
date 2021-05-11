@@ -6,7 +6,7 @@ int pickedStage = 0;
 float neuralvarians = 2;
 int antalbiler = 200;
 int levetiden = 10;
-float MutationsRate = 30;
+float MutationsRate = 25;
 float FriktionAddition = 0.4;
 int SensorLength = 35;
 Slider neuralslider, bilslider, levetid, Mutationslider, Friktionslider, SensorLengthslider;

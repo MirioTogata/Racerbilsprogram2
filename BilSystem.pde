@@ -19,7 +19,7 @@ class BilSystem {
   void run() { //Main kommando for alle billerne
     for (int i = BilListe.size()-1; i >= 0; i--) { //en liste der fjerne bilerne som er kørt galt
       if (get((int)BilListe.get(i).bil.pos.x, (int)BilListe.get(i).bil.pos.y) == color(0)) {
-        BilListe.remove(i);
+        BilListe.get(i).bil.vel.set(0,0);
       }
     }
     for (SelveBil bil : BilListe) { //kører update for alle bilerne før display, så det er nemmere at bruge farvebaseret metoder.
@@ -39,7 +39,7 @@ class BilSystem {
     }
 
     ArrayList<SelveBil> foraeldre = new ArrayList<SelveBil>();
-    for (int i = 0; i < 2*BilListe.size(); i++) {
+    for (int i = 0; i < 2*antalbiler; i++) {
       int cumuStyrke = 0;
       int randomnum = (int)random(0, totalpoint);
       for (int j = 0; j < allepoint.size(); j++) {
@@ -50,7 +50,6 @@ class BilSystem {
         }
       }
     }
-    assert(foraeldre.size() == BilListe.size()*2);
     println(BilListe.size());
     println(foraeldre.size());
 
