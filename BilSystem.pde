@@ -1,8 +1,6 @@
 class BilSystem {
   ArrayList<SelveBil> BilListe = new ArrayList<SelveBil>(); //En liste med alle bilerne i sig
-  float neuralvarians; //definerer basically hvor store tallene er i mit neurale net
   BilSystem(int antalbiler) { //constructør som kun bruges 1 gang, til at danne 200 helt tilfældige biler
-    neuralvarians = neuralsliding;
     for (int i = 0; i < antalbiler; i++) { //kører igennem alle de biler der skal laves
       float[] weights = new float[21];
       float[] biass = new float[4];
@@ -19,8 +17,8 @@ class BilSystem {
     }
   }
   void run() { //Main kommando for alle billerne
-    for (int i = BilListe.size()-1; i >= 0; i--) { //en liste der fjerne bilerne som er kørt galt eller som er sluttet løbet
-      if (get((int)BilListe.get(i).bil.pos.x, (int)BilListe.get(i).bil.pos.y) == color(0) || BilListe.get(i).slut == true) {
+    for (int i = BilListe.size()-1; i >= 0; i--) { //en liste der fjerne bilerne som er kørt galt
+      if (get((int)BilListe.get(i).bil.pos.x, (int)BilListe.get(i).bil.pos.y) == color(0)) {
         BilListe.remove(i);
       }
     }

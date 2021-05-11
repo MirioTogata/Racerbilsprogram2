@@ -2,19 +2,20 @@ import controlP5.*;
 ControlP5 cp5;
 PImage bane; 
 boolean stagePicked = false;
+float neuralvarians = 2;
 int antalbiler = 200;
-float neuralsliding = 2;
 int levetiden = 10;
+float MutationsRate = 2;
+float FriktionAddition = 0.4;
+int SensorLength = 25;
+Slider neuralslider, bilslider,levetid,Mutationslider,Friktionslider,SensorLengthslider;
 BilSystem bilSystemet; //Laver mit hovedbilsystem som styrer "alt"
 ArrayList<SelveBil> contenders = new ArrayList<SelveBil>(); //Laver en liste med dem som vinder, altså bliver listen langsomt større
-Slider neuralslider;
-Slider bilslider;
-Slider levetid;
 
 void setup() {
   size(1000, 1000);
   cp5 = new ControlP5(this);
-  neuralslider = cp5.addSlider("neuralsliding").setPosition(100, 170).setRange(0, 4).setSize(200, 30).setNumberOfTickMarks(41);
+  neuralslider = cp5.addSlider("neuralvarians").setPosition(100, 170).setRange(0, 4).setSize(200, 30).setNumberOfTickMarks(41);
   bilslider = cp5.addSlider("antalbiler").setPosition(400, 170).setRange(50, 350).setSize(200, 30);
   levetid = cp5.addSlider("levetiden").setPosition(700, 170).setRange(5, 20).setSize(200, 30);
   SettingsScreen();
@@ -22,8 +23,9 @@ void setup() {
 
 void draw() {
   if (stagePicked) {
-    image(bane, 0, 0);
+    image(bane, 50, 100);
     bilSystemet.run(); //kører alting for bilerne der skal køres
+    println(mouseX + " " + mouseY);
   }
 }
 
@@ -54,10 +56,15 @@ void mousePressed() {
         }
         if (mouseY > 350) {
           bane = loadImage("Bane" + i +".png");
+          bane.resize(900, 0);
           bilSystemet = new BilSystem(antalbiler);
+          background(0);
           neuralslider.setVisible(false);
           bilslider.setVisible(false);
           levetid.setVisible(false);
+          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 50).setRange(0, 10).setSize(200, 30);
+          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 50).setRange(0, 1).setSize(200, 30);
+          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 50).setRange(10, 40).setSize(200, 30);
           stagePicked = true;
           break;
         }
