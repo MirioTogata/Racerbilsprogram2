@@ -27,6 +27,11 @@ void draw() {
     background(0);
     image(bane, 50, 100);
     checkpoints();
+    fill(255);
+    textSize(25);
+    text("Mutationsrate", 115, 50);
+    text("Friktion Addition", 400, 50);
+    text("Sensor Længde", 710, 50);
     bilSystemet.run(); //kører alting for bilerne der skal køres
     if ((millis()-time) > levetiden*1000) {
       if (second() % levetiden == 0) {
@@ -74,9 +79,9 @@ void mousePressed() {
           neuralslider.setVisible(false);
           bilslider.setVisible(false);
           levetid.setVisible(false);
-          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 50).setRange(3, 50).setSize(200, 30).setColorCaptionLabel(1);
-          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 50).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
-          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 50).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
+          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 70).setRange(3, 50).setSize(200, 30).setColorCaptionLabel(1);
+          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 70).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
+          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
           stagePicked = true;
           time = millis();
           break;
