@@ -27,6 +27,7 @@ void draw() {
     image(bane, 50, 100);
     checkpoints();
     bilSystemet.run(); //kører alting for bilerne der skal køres
+    println(mouseX + " " + mouseY);
   }
 }
 
@@ -85,3 +86,4 @@ void checkpoints() {
   } else {
     println("what da hec");
   }
+}
