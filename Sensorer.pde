@@ -1,7 +1,7 @@
 class Sensorer {
   float sensorMag = 20; //hvor langt sensorene rækker ud
   float sensorAngle = PI/12; //hvor meget de drejer ud fra hvor bilen vender
-  float[] sensors = new float[7];
+  float[] sensors = new float[6];
   PVector[] vectors = new PVector[7];
 
   Sensorer() {
@@ -12,7 +12,7 @@ class Sensorer {
 
   void update(PVector pos, PVector vel) { //updaterer positionen af vektorene
     sensorMag = SensorLength;
-      PVector last = new PVector(vel.x, vel.y);
+    PVector last = new PVector(vel.x, vel.y);
     last.normalize();
     last.mult(sensorMag);
     for (int i = 0; i < vectors.length-1; i += 2) {
@@ -32,9 +32,6 @@ class Sensorer {
       if (i > 3) {
         c = color(34, 177, 76);
       } 
-      if (i > 5) {
-        c = color(255, 242, 0);
-      }
 
       if (get((int)(pos.x+vectors[i].x), (int)(pos.y+vectors[i].y)) == c) {
         sensors[i] = 1;
@@ -53,7 +50,6 @@ class Sensorer {
       if (i > 3) {
         c = color(34, 177, 76);
       }
-
       fill(c);
       circle(pos.x+vectors[i].x, pos.y+vectors[i].y, 10);
       line(pos.x, pos.y, pos.x+vectors[i].x, pos.y+vectors[i].y);
