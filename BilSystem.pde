@@ -19,7 +19,7 @@ class BilSystem {
   void run() { //Main kommando for alle billerne
     for (int i = BilListe.size()-1; i >= 0; i--) { //en liste der fjerne bilerne som er kørt galt
       if (get((int)BilListe.get(i).bil.pos.x, (int)BilListe.get(i).bil.pos.y) == color(0)) {
-        BilListe.get(i).bil.vel.set(0,0);
+        BilListe.get(i).bil.vel.set(0, 0);
       }
     }
     for (SelveBil bil : BilListe) { //kører update for alle bilerne før display, så det er nemmere at bruge farvebaseret metoder.
@@ -28,6 +28,15 @@ class BilSystem {
     for (SelveBil bil : BilListe) {
       bil.display(); //main display for alle bilerne
     }
+  }
+
+  boolean anyPoints() {
+    for (SelveBil bil : BilListe) {
+      if (bil.points > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   void nextgeneration() { //funktion der sletter alle de gamle biler og laver 200 nye biler af vinderenes gener
@@ -67,14 +76,12 @@ class BilSystem {
         }
       }
 
-      for (int j = 0; j < weights.length+biass.length-1; j++) { //forloop der laver mutationen for barnet. Den køres igennem for hvert eneste bias og vægt
-        int mutation = (int)random(1, MutationsRate); //et tilfældigt tal fra 1-20, altså er mutationsprocent 5%
-        if (mutation == 1) { //hvis tallet er 1, lav mutation på den ene bias eller vægt
-          if (j < 21) {
-            weights[j] = random(-neuralvarians, neuralvarians); //mutation i dette program betyder en tilfældig værdi baseret på den neurale varians istedet for det de fik fra forældrene.
-          } else {
-            biass[j-21] = random(-neuralvarians, neuralvarians); //gøres igen men for bias og ikke vægt.
-          }
+      if ((int)random(1, 100) <= MutationsRate) {
+        int j = (int)random(0, weights.length+biass.length-1);
+        if (j < 21) {
+          weights[j] = random(-neuralvarians, neuralvarians); //mutation i dette program betyder en tilfældig værdi baseret på den neurale varians istedet for det de fik fra forældrene.
+        } else {
+          biass[j-21] = random(-neuralvarians, neuralvarians); //gøres igen men for bias og ikke vægt.
         }
       }
 

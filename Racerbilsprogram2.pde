@@ -6,7 +6,7 @@ int pickedStage = 0;
 float neuralvarians = 2;
 int antalbiler = 200;
 int levetiden = 15;
-float MutationsRate = 25;
+int MutationsRate = 2;
 float FriktionAddition = 0.4;
 int SensorLength = 35;
 int time = 0;
@@ -30,13 +30,13 @@ void draw() {
     fill(255);
     textSize(25);
     text("Mutationsrate", 115, 50);
-    text("Friktion Addition", 400, 50);
+    text("Hastigheds i rød og grøn felt", 400, 50);
     text("Sensor Længde", 710, 50);
     bilSystemet.run(); //kører alting for bilerne der skal køres
     if ((millis()-time) > levetiden*1000) {
       if (second() % levetiden == 0) {
-        bilSystemet.nextgeneration();
         time = millis();
+        bilSystemet.nextgeneration();
       }
     }
   }
@@ -80,7 +80,7 @@ void mousePressed() {
           neuralslider.setVisible(false);
           bilslider.setVisible(false);
           levetid.setVisible(false);
-          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 70).setRange(3, 50).setSize(200, 30).setColorCaptionLabel(1);
+          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 70).setRange(0, 50).setSize(200, 30).setColorCaptionLabel(1);
           Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 70).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
           SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
           stagePicked = true;
@@ -94,8 +94,10 @@ void mousePressed() {
 
 void keyPressed() {
   if (key == ' ') {
-    bilSystemet.nextgeneration();
-    time = millis();
+    if (bilSystemet.anyPoints() == true) {
+      time = millis();
+      bilSystemet.nextgeneration();
+    }
   }
 }
 
