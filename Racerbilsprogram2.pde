@@ -36,6 +36,7 @@ void draw() {
     if ((millis()-time) > levetiden*1000) {
       if (second() % levetiden == 0) {
         bilSystemet.nextgeneration();
+        time = millis();
       }
     }
   }
@@ -94,6 +95,7 @@ void mousePressed() {
 void keyPressed() {
   if (key == ' ') {
     bilSystemet.nextgeneration();
+    time = millis();
   }
 }
 
