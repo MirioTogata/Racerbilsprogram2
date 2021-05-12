@@ -74,7 +74,7 @@ void draw() {
     if (resetButton.isPressed()) {
       neuralslider.setVisible(true);
       bilslider.setVisible(true);
-      levetid.setVisible(true);          
+      levetid.setVisible(true);
       Mutationslider.setVisible(false);
       Friktionslider.setVisible(false);
       SensorLengthslider.setVisible(false);
@@ -208,7 +208,7 @@ void checkpoints() {
     stroke(245, 242, 0);
     line(750, 566, 858, 458);
     stroke(255, 242, 0);
-    line(720, 740, 1035, 600);
+    line(920, 740, 1035, 600);
   } else {
     println("what da hec");
   }
