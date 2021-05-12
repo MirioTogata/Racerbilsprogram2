@@ -1,9 +1,9 @@
 class Bil {
-  PVector pos = new PVector(450, 200); //position og hastighed dannes først
+  PVector pos = new PVector(450, 200);
   PVector vel = new PVector(5, 0);
   float acclkinda = 1;
 
-  void update() { //positionene opdateres når denne funktion er kaldet
+  void update() {
     if (acclkinda > 1) {
       acclkinda -= 0.01;
     } else if (acclkinda < 1) {
@@ -17,10 +17,10 @@ class Bil {
     }
     pos.add(vel.copy().mult(acclkinda));
   }
-  void turn(float angle) { //den drejer ift. hvad det neurale netværk siger
+  void turn(float angle) {
     vel.rotate(angle);
   }
-  void display() { //en funktion der tegner bilen
+  void display() {
     fill(250, 10, 10);
     circle(pos.x, pos.y, 14);
   }

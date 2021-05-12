@@ -1,6 +1,6 @@
 class Sensorer {
-  float sensorMag = 20; //hvor langt sensorene rækker ud
-  float sensorAngle = PI/12; //hvor meget de drejer ud fra hvor bilen vender
+  float sensorMag = 20;
+  float sensorAngle = PI/12; 
   float[] sensors = new float[6];
   PVector[] vectors = new PVector[7];
 
@@ -10,7 +10,7 @@ class Sensorer {
     }
   }
 
-  void update(PVector pos, PVector vel) { //updaterer positionen af vektorene
+  void update(PVector pos, PVector vel) {
     sensorMag = SensorLength;
     PVector last = new PVector(vel.x, vel.y);
     last.normalize();
@@ -41,7 +41,7 @@ class Sensorer {
     }
   }
 
-  void display(PVector pos) { //tegner bare sensorene og deres vektore. Ændrer farve ift. om den er inde eller ude
+  void display(PVector pos) {
     for (int i = 0; i < vectors.length-1; i++) {
       color c = color(0);
       if (i > 1) {

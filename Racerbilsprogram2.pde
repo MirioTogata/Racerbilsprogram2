@@ -6,7 +6,7 @@ int pickedStage = 0;
 float neuralvarians = 2;
 int antalbiler = 200;
 int levetiden = 15;
-int MutationsRate = 2;
+int MutationsRate = 10;
 float FriktionAddition = 0.4;
 int SensorLength = 35;
 int time = 0;
@@ -17,7 +17,7 @@ int[] bilericheckpoint = new int[4];
 Slider neuralslider, bilslider, levetid, Mutationslider, Friktionslider, SensorLengthslider;
 Button resetButton, endButton;
 Textarea Tooltips;
-BilSystem bilSystemet; //Laver mit hovedbilsystem som styrer "alt"
+BilSystem bilSystemet;
 
 void setup() {
   size(1600, 1000);
@@ -30,7 +30,7 @@ void setup() {
   SensorLengthslider = cp5.addSlider("SensorLength").setPosition(1000, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
   resetButton = cp5.addButton("Reset").setValue(0).setPosition(40, 165).setSize(100, 50);
   endButton = cp5.addButton("Pause/Play").setValue(0).setPosition(180, 165).setSize(100, 50);
-  Tooltips = cp5.addTextarea("tooltips").setPosition(1250,50).setSize(200,700).setFont(createFont("arial",18)).setLineHeight(30).setColor(color(0)).setColorBackground(color(250,250,50)).setColorForeground(color(255,100));
+  Tooltips = cp5.addTextarea("tooltips").setPosition(1250, 50).setSize(200, 700).setFont(createFont("arial", 18)).setLineHeight(30).setColor(color(0)).setColorBackground(color(250, 250, 50)).setColorForeground(color(255, 100));
 
   Mutationslider.setVisible(false);
   Friktionslider.setVisible(false);
@@ -61,7 +61,7 @@ void draw() {
       text("Mutationsprocent", 395, 50);
       text("Hastighed i rød og grøn", 660, 50);
       text("Sensor Længde", 1010, 50);
-      bilSystemet.run(); //kører alting for bilerne der skal køres
+      bilSystemet.run();
       if ((millis()-time) > levetiden*1000) {
         if (second() % levetiden == 0) {
           time = millis();
@@ -221,10 +221,20 @@ void Tooltips() {
     Tooltips.setVisible(true);
     Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
   } else if (bilslider.isMouseOver()) {
+    Tooltips.setVisible(true);
+    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
   } else if (levetid.isMouseOver()) {
+    Tooltips.setVisible(true);
+    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
   } else if (Mutationslider.isMouseOver()) {
+    Tooltips.setVisible(true);
+    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
   } else if (Friktionslider.isMouseOver()) {
+    Tooltips.setVisible(true);
+    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
   } else if (SensorLengthslider.isMouseOver()) {
+    Tooltips.setVisible(true);
+    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
   } else {
     Tooltips.setVisible(false);
   }

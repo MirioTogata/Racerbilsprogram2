@@ -1,11 +1,11 @@
 class BilSystem {
-  ArrayList<SelveBil> BilListe = new ArrayList<SelveBil>(); //En liste med alle bilerne i sig
+  ArrayList<SelveBil> BilListe = new ArrayList<SelveBil>();
   int crashedbiler = 0;
-  BilSystem(int antalbiler) { //constructør som kun bruges 1 gang, til at danne 200 helt tilfældige biler
-    for (int i = 0; i < antalbiler; i++) { //kører igennem alle de biler der skal laves
+  BilSystem(int antalbiler) { 
+    for (int i = 0; i < antalbiler; i++) { 
       float[] weights = new float[21];
       float[] biass = new float[4];
-      for (int j = 0; j < weights.length+biass.length-1; j++) { //et for loop der generer tilfælde værdier til det neurale netværk basseret på den neurale varians
+      for (int j = 0; j < weights.length+biass.length-1; j++) {
         if (j < weights.length) {
           weights[j] = random(-neuralvarians, neuralvarians);
         } else {
@@ -13,12 +13,12 @@ class BilSystem {
         }
       }
 
-      SelveBil bil = new SelveBil(weights, biass); //danner en ny bil med de værdier vi fandt før
-      BilListe.add(bil); //adder det til listen af biler
+      SelveBil bil = new SelveBil(weights, biass);
+      BilListe.add(bil);
     }
   }
-  void run() { //Main kommando for alle billerne
-    for (int i = BilListe.size()-1; i >= 0; i--) { //en liste der fjerne bilerne som er kørt galt
+  void run() { 
+    for (int i = BilListe.size()-1; i >= 0; i--) { 
       if (get((int)BilListe.get(i).bil.pos.x, (int)BilListe.get(i).bil.pos.y) == color(0)) {
         if (BilListe.get(i).bil.vel.x != 0 || BilListe.get(i).bil.vel.y != 0) {
           BilListe.get(i).bil.vel.set(0, 0);
@@ -26,11 +26,11 @@ class BilSystem {
         }
       }
     }
-    for (SelveBil bil : BilListe) { //kører update for alle bilerne før display, så det er nemmere at bruge farvebaseret metoder.
-      bil.update(); //main update for alle bilerne
+    for (SelveBil bil : BilListe) { 
+      bil.update();
     }
     for (SelveBil bil : BilListe) {
-      bil.display(); //main display for alle bilerne
+      bil.display();
     }
 
     for (int i = 1; i <= bilericheckpoint.length; i++) {
@@ -52,7 +52,7 @@ class BilSystem {
     return false;
   }
 
-  void nextgeneration() { //funktion der sletter alle de gamle biler og laver 200 nye biler af vinderenes gener
+  void nextgeneration() { 
     generationtal++;
     crashedbiler = 0;
 
@@ -76,15 +76,15 @@ class BilSystem {
       }
     }
 
-    for (int i = bilSystemet.BilListe.size()-1; i >=0; i--) { //for loop der sletter alle de gamle
+    for (int i = bilSystemet.BilListe.size()-1; i >=0; i--) {
       bilSystemet.BilListe.remove(i);
     }
 
-    for (int i = 0; i < foraeldre.size(); i += 2) { //funktion der tæller igennem de 200 nye der skal laves
-      float[] weights = new float[21]; //der skal lave 8 weights til det neurale netværk, som vi definerer lige om lidt. Bias til det neurale netværk laves under.
-      float[] biass = {foraeldre.get(i).neuralNet.bias[0], foraeldre.get(i+1).neuralNet.bias[1], foraeldre.get(i).neuralNet.bias[2], foraeldre.get(i+1).neuralNet.bias[3]}; //vi laver og definerer bias
+    for (int i = 0; i < foraeldre.size(); i += 2) { 
+      float[] weights = new float[21]; 
+      float[] biass = {foraeldre.get(i).neuralNet.bias[0], foraeldre.get(i+1).neuralNet.bias[1], foraeldre.get(i).neuralNet.bias[2], foraeldre.get(i+1).neuralNet.bias[3]};
 
-      for (int j = 0; j < weights.length; j++) { //et forloop der laver vægten baseret på forældrene. En halv krop fra mor, og en halv krop fra far.
+      for (int j = 0; j < weights.length; j++) {
         if (j < 11) {
           weights[j] = foraeldre.get(i).neuralNet.vaegt[j];
         } else {
@@ -95,14 +95,14 @@ class BilSystem {
       if ((int)random(1, 100) <= MutationsRate) {
         int j = (int)random(0, weights.length+biass.length-1);
         if (j < 21) {
-          weights[j] = random(-neuralvarians, neuralvarians); //mutation i dette program betyder en tilfældig værdi baseret på den neurale varians istedet for det de fik fra forældrene.
+          weights[j] = random(-neuralvarians, neuralvarians); 
         } else {
-          biass[j-21] = random(-neuralvarians, neuralvarians); //gøres igen men for bias og ikke vægt.
+          biass[j-21] = random(-neuralvarians, neuralvarians);
         }
       }
 
-      SelveBil bil = new SelveBil(weights, biass); //der laves så en ny bil ud fra de tal
-      bilSystemet.BilListe.add(bil); //bilen tilføjes til bilsystemet
+      SelveBil bil = new SelveBil(weights, biass); 
+      bilSystemet.BilListe.add(bil);
     }
   }
 }
