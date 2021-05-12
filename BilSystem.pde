@@ -1,5 +1,6 @@
 class BilSystem {
   ArrayList<SelveBil> BilListe = new ArrayList<SelveBil>(); //En liste med alle bilerne i sig
+  int crashedbiler = 0;
   BilSystem(int antalbiler) { //constructør som kun bruges 1 gang, til at danne 200 helt tilfældige biler
     for (int i = 0; i < antalbiler; i++) { //kører igennem alle de biler der skal laves
       float[] weights = new float[21];
@@ -19,7 +20,10 @@ class BilSystem {
   void run() { //Main kommando for alle billerne
     for (int i = BilListe.size()-1; i >= 0; i--) { //en liste der fjerne bilerne som er kørt galt
       if (get((int)BilListe.get(i).bil.pos.x, (int)BilListe.get(i).bil.pos.y) == color(0)) {
-        BilListe.get(i).bil.vel.set(0, 0);
+        if (BilListe.get(i).bil.vel.x != 0 || BilListe.get(i).bil.vel.y != 0) {
+          BilListe.get(i).bil.vel.set(0, 0);
+          crashedbiler += 1;
+        }
       }
     }
     for (SelveBil bil : BilListe) { //kører update for alle bilerne før display, så det er nemmere at bruge farvebaseret metoder.
@@ -27,6 +31,15 @@ class BilSystem {
     }
     for (SelveBil bil : BilListe) {
       bil.display(); //main display for alle bilerne
+    }
+
+    for (int i = 1; i <= bilericheckpoint.length; i++) {
+      bilericheckpoint[i-1] = 0;
+      for (SelveBil bil : BilListe) {
+        if (bil.points == i*(i+1)/2) { //its a feature
+          bilericheckpoint[i-1] += 1;
+        }
+      }
     }
   }
 
@@ -40,6 +53,9 @@ class BilSystem {
   }
 
   void nextgeneration() { //funktion der sletter alle de gamle biler og laver 200 nye biler af vinderenes gener
+    generationtal++;
+    crashedbiler = 0;
+
     IntList allepoint = new IntList();
     int totalpoint = 0;
     for (SelveBil bil : BilListe) {

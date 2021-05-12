@@ -10,7 +10,13 @@ int MutationsRate = 2;
 float FriktionAddition = 0.4;
 int SensorLength = 35;
 int time = 0;
+boolean pause = false;
+int pausetime = 0;
+int generationtal = 1;
+int[] bilericheckpoint = new int[4];
 Slider neuralslider, bilslider, levetid, Mutationslider, Friktionslider, SensorLengthslider;
+Button resetButton, endButton;
+Textarea Tooltips;
 BilSystem bilSystemet; //Laver mit hovedbilsystem som styrer "alt"
 
 void setup() {
@@ -19,31 +25,67 @@ void setup() {
   neuralslider = cp5.addSlider("neuralvarians").setPosition(400, 170).setRange(0, 4).setSize(200, 30).setNumberOfTickMarks(41).setColorCaptionLabel(1);
   bilslider = cp5.addSlider("antalbiler").setPosition(700, 170).setRange(50, 350).setSize(200, 30).setColorCaptionLabel(1);
   levetid = cp5.addSlider("levetiden").setPosition(1000, 170).setRange(10, 30).setSize(200, 30).setColorCaptionLabel(1);
-  SettingsScreen();
+  Mutationslider = cp5.addSlider("MutationsRate").setPosition(400, 70).setRange(0, 50).setSize(200, 30).setColorCaptionLabel(1);
+  Friktionslider = cp5.addSlider("FriktionAddition").setPosition(700, 70).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
+  SensorLengthslider = cp5.addSlider("SensorLength").setPosition(1000, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
+  resetButton = cp5.addButton("Reset").setValue(0).setPosition(40, 165).setSize(100, 50);
+  endButton = cp5.addButton("Pause/Play").setValue(0).setPosition(180, 165).setSize(100, 50);
+  Tooltips = cp5.addTextarea("tooltips").setPosition(1250,50).setSize(200,700).setFont(createFont("arial",18)).setLineHeight(30).setColor(color(0)).setColorBackground(color(250,250,50)).setColorForeground(color(255,100));
+
+  Mutationslider.setVisible(false);
+  Friktionslider.setVisible(false);
+  SensorLengthslider.setVisible(false);
+  resetButton.setVisible(false);
+  endButton.setVisible(false);
 }
 
 void draw() {
-  if (stagePicked) {
+  if (pause == false) {
     background(0);
-    image(bane, 350, 100);
-    checkpoints();
+    textSize(35);
     fill(255);
-    textSize(25);
-    text("Mutationsprocent", 395, 50);
-    text("Hastighed i rød og grøn", 660, 50);
-    text("Sensor Længde", 1010, 50);
-    bilSystemet.run(); //kører alting for bilerne der skal køres
-    if ((millis()-time) > levetiden*1000) {
-      if (second() % levetiden == 0) {
-        time = millis();
-        bilSystemet.nextgeneration();
+    text("Hover teksten for", 30, 50);
+    text("at se mere", 30, 100);
+    if (stagePicked) {
+      image(bane, 350, 100);
+      checkpoints();
+      textSize(25);
+      text("Generation: " + generationtal, 30, 300);
+      text("Antal biler: " + antalbiler, 30, 330);
+      text("Crashed Biler: " + bilSystemet.crashedbiler, 30, 360);
+      text("Biler i checkpoint 1: " + bilericheckpoint[0], 30, 390);
+      text("Biler i checkpoint 2: " + bilericheckpoint[1], 30, 420);
+      text("Biler i checkpoint 3: " + bilericheckpoint[2], 30, 450);
+      text("Biler i checkpoint 4: " + bilericheckpoint[3], 30, 480);
+      text("Mutationsprocent", 395, 50);
+      text("Hastighed i rød og grøn", 660, 50);
+      text("Sensor Længde", 1010, 50);
+      bilSystemet.run(); //kører alting for bilerne der skal køres
+      if ((millis()-time) > levetiden*1000) {
+        if (second() % levetiden == 0) {
+          time = millis();
+          bilSystemet.nextgeneration();
+        }
       }
+    } else {
+      SettingsScreen();
+    }
+    if (resetButton.isPressed()) {
+      neuralslider.setVisible(true);
+      bilslider.setVisible(true);
+      levetid.setVisible(true);          
+      Mutationslider.setVisible(false);
+      Friktionslider.setVisible(false);
+      SensorLengthslider.setVisible(false);
+      resetButton.setVisible(false);
+      endButton.setVisible(false);
+      generationtal = 1;
+      stagePicked = false;
     }
   }
+  Tooltips();
 }
-
 void SettingsScreen() {
-  background(50);
   fill(0);
   rect(375, 120, 850, 100);
   fill(255);
@@ -79,15 +121,26 @@ void mousePressed() {
           bilSystemet = new BilSystem(antalbiler);
           neuralslider.setVisible(false);
           bilslider.setVisible(false);
-          levetid.setVisible(false);
-          Mutationslider = cp5.addSlider("MutationsRate").setPosition(400, 70).setRange(0, 50).setSize(200, 30).setColorCaptionLabel(1);
-          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(700, 70).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
-          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(1000, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
+          levetid.setVisible(false);          
+          Mutationslider.setVisible(true);
+          Friktionslider.setVisible(true);
+          SensorLengthslider.setVisible(true);
+          resetButton.setVisible(true);
+          endButton.setVisible(true);
           stagePicked = true;
           time = millis();
           break;
         }
       }
+    }
+  }
+  if (endButton.isPressed()) {
+    if (pause == false) {
+      pausetime = millis();
+      pause = true;
+    } else {
+      pause = false;
+      time += millis()-pausetime;
     }
   }
 }
@@ -160,4 +213,18 @@ void checkpoints() {
   }
   strokeWeight(1);
   stroke(0);
+}
+
+void Tooltips() {
+  if (neuralslider.isMouseOver()) {
+    Tooltips.setVisible(true);
+    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+  } else if (bilslider.isMouseOver()) {
+  } else if (levetid.isMouseOver()) {
+  } else if (Mutationslider.isMouseOver()) {
+  } else if (Friktionslider.isMouseOver()) {
+  } else if (SensorLengthslider.isMouseOver()) {
+  } else {
+    Tooltips.setVisible(false);
+  }
 }

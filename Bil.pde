@@ -4,13 +4,17 @@ class Bil {
   float acclkinda = 1;
 
   void update() { //positionene opdateres når denne funktion er kaldet
-  acclkinda = 1;
-  if (get((int)pos.x,(int)pos.y) == color(34,177,76)){
-    acclkinda += FriktionAddition;
-  }
-    if (get((int)pos.x,(int)pos.y) == color(237,28,36)){
-    acclkinda -= FriktionAddition;
-  }
+    if (acclkinda > 1) {
+      acclkinda -= 0.01;
+    } else if (acclkinda < 1) {
+      acclkinda += 0.01;
+    }
+    if (get((int)pos.x, (int)pos.y) == color(34, 177, 76)) {
+      acclkinda = FriktionAddition+1;
+    }
+    if (get((int)pos.x, (int)pos.y) == color(237, 28, 36)) {
+      acclkinda = 1-FriktionAddition;
+    }
     pos.add(vel.copy().mult(acclkinda));
   }
   void turn(float angle) { //den drejer ift. hvad det neurale netværk siger
