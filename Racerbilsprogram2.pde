@@ -14,24 +14,24 @@ Slider neuralslider, bilslider, levetid, Mutationslider, Friktionslider, SensorL
 BilSystem bilSystemet; //Laver mit hovedbilsystem som styrer "alt"
 
 void setup() {
-  size(1000, 1000);
+  size(1600, 1000);
   cp5 = new ControlP5(this);
-  neuralslider = cp5.addSlider("neuralvarians").setPosition(100, 170).setRange(0, 4).setSize(200, 30).setNumberOfTickMarks(41).setColorCaptionLabel(1);
-  bilslider = cp5.addSlider("antalbiler").setPosition(400, 170).setRange(50, 350).setSize(200, 30).setColorCaptionLabel(1);
-  levetid = cp5.addSlider("levetiden").setPosition(700, 170).setRange(10, 30).setSize(200, 30).setColorCaptionLabel(1);
+  neuralslider = cp5.addSlider("neuralvarians").setPosition(400, 170).setRange(0, 4).setSize(200, 30).setNumberOfTickMarks(41).setColorCaptionLabel(1);
+  bilslider = cp5.addSlider("antalbiler").setPosition(700, 170).setRange(50, 350).setSize(200, 30).setColorCaptionLabel(1);
+  levetid = cp5.addSlider("levetiden").setPosition(1000, 170).setRange(10, 30).setSize(200, 30).setColorCaptionLabel(1);
   SettingsScreen();
 }
 
 void draw() {
   if (stagePicked) {
     background(0);
-    image(bane, 50, 100);
+    image(bane, 350, 100);
     checkpoints();
     fill(255);
     textSize(25);
-    text("Mutationsrate", 115, 50);
-    text("Hastigheds i rød og grøn felt", 400, 50);
-    text("Sensor Længde", 710, 50);
+    text("Mutationsprocent", 395, 50);
+    text("Hastighed i rød og grøn", 660, 50);
+    text("Sensor Længde", 1010, 50);
     bilSystemet.run(); //kører alting for bilerne der skal køres
     if ((millis()-time) > levetiden*1000) {
       if (second() % levetiden == 0) {
@@ -45,22 +45,22 @@ void draw() {
 void SettingsScreen() {
   background(50);
   fill(0);
-  rect(75, 120, 850, 100);
+  rect(375, 120, 850, 100);
   fill(255);
   textSize(25);
-  text("Neural Varians", 115, 155);
-  text("Antal Biler", 435, 155);
-  text("Levetiden", 745, 155);
+  text("Neural Varians", 415, 155);
+  text("Antal Biler", 735, 155);
+  text("Levetiden", 1045, 155);
   textSize(50);
-  text("Venstre-klik på banen du vil bruge", 70, 300);
-  text("Vælg dine start-parametre", 70, 80);
+  text("Venstre-klik på banen du vil bruge", 370, 300);
+  text("Vælg dine start-parametre", 370, 80);
   for (int i = 0; i <= 5; i++) {
     bane = loadImage("Bane" + (i+1) +".png");
     bane.resize(250, 0);
     if (i < 3) {
-      image(bane, 75+(i)*300, 350);
+      image(bane, 375+(i)*300, 350);
     } else {
-      image(bane, 75+(i-3)*300, 650);
+      image(bane, 375+(i-3)*300, 650);
     }
   }
 }
@@ -68,7 +68,7 @@ void SettingsScreen() {
 void mousePressed() {
   if (stagePicked == false) {
     for (int i = 1; i <= 3; i++) {
-      if (mouseX > 75+(i-1)*300 && mouseX < (325+(i-1)*300)) {
+      if (mouseX > 375+(i-1)*300 && mouseX < (625+(i-1)*300)) {
         if (mouseY > 650) {
           i+= 3;
         }
@@ -80,9 +80,9 @@ void mousePressed() {
           neuralslider.setVisible(false);
           bilslider.setVisible(false);
           levetid.setVisible(false);
-          Mutationslider = cp5.addSlider("MutationsRate").setPosition(100, 70).setRange(0, 50).setSize(200, 30).setColorCaptionLabel(1);
-          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(400, 70).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
-          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(700, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
+          Mutationslider = cp5.addSlider("MutationsRate").setPosition(400, 70).setRange(0, 50).setSize(200, 30).setColorCaptionLabel(1);
+          Friktionslider = cp5.addSlider("FriktionAddition").setPosition(700, 70).setRange(0, 1).setSize(200, 30).setColorCaptionLabel(1);
+          SensorLengthslider = cp5.addSlider("SensorLength").setPosition(1000, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
           stagePicked = true;
           time = millis();
           break;
@@ -105,56 +105,56 @@ void checkpoints() {
   strokeWeight(8);
   if (pickedStage == 1) {
     stroke(225, 242, 0);
-    line(450, 140, 450, 240);
+    line(750, 140, 750, 240);
     stroke(235, 242, 0);
-    line(715, 290, 715, 380);
+    line(1015, 290, 1015, 380);
     stroke(245, 242, 0);
-    line(280, 560, 280, 680);
+    line(580, 560, 580, 680);
     stroke(255, 242, 0);
-    line(690, 740, 690, 835);
+    line(990, 740, 990, 835);
   } else if (pickedStage == 2) {
     stroke(225, 242, 0);
-    line(250, 410, 350, 321);
+    line(550, 410, 650, 321);
     stroke(235, 242, 0);
-    line(550, 440, 650, 440);
+    line(850, 440, 950, 440);
     stroke(245, 242, 0);
-    line(750, 535, 880, 550);
+    line(1050, 535, 1180, 550);
     stroke(255, 242, 0);
-    line(400, 660, 390, 835);
+    line(700, 660, 690, 835);
   } else if (pickedStage == 3) {
     stroke(225, 242, 0);
-    line(485, 160, 485, 255);
+    line(785, 160, 785, 255);
     stroke(235, 242, 0);
-    line(777, 385, 900, 385);
+    line(1077, 385, 1200, 385);
     stroke(245, 242, 0);
-    line(685, 836, 685, 950);
+    line(985, 836, 985, 950);
     stroke(255, 242, 0);
-    line(300, 370, 300, 485);
+    line(600, 370, 600, 485);
   } else if (pickedStage == 4) {
     stroke(225, 242, 0);
-    line(200, 674, 322, 622);
+    line(500, 674, 622, 622);
     stroke(235, 242, 0);
-    line(410, 432, 500, 333);
+    line(710, 432, 800, 333);
     stroke(245, 242, 0);
-    line(475, 260, 502, 162);
+    line(775, 260, 802, 162);
   } else if (pickedStage == 5) {
     stroke(225, 242, 0);
-    line(85, 375, 210, 375);
+    line(385, 375, 510, 375);
     stroke(235, 242, 0);
-    line(415, 540, 593, 540);
+    line(715, 540, 893, 540);
     stroke(245, 242, 0);
-    line(85, 580, 215, 580);
+    line(385, 580, 515, 580);
     stroke(255, 242, 0);
-    line(718, 570, 845, 577);
+    line(1018, 570, 1145, 577);
   } else if (pickedStage == 6) {
     stroke(225, 242, 0);
-    line(186, 323, 275, 226);
+    line(486, 323, 575, 226);
     stroke(235, 242, 0);
-    line(341, 452, 400, 322);
+    line(641, 452, 700, 322);
     stroke(245, 242, 0);
-    line(450, 566, 558, 458);
+    line(750, 566, 858, 458);
     stroke(255, 242, 0);
-    line(620, 740, 735, 600);
+    line(720, 740, 1035, 600);
   } else {
     println("what da hec");
   }

@@ -1,5 +1,5 @@
 class Bil {
-  PVector pos = new PVector(150, 200); //position og hastighed dannes først
+  PVector pos = new PVector(450, 200); //position og hastighed dannes først
   PVector vel = new PVector(5, 0);
   float acclkinda = 1;
 
