@@ -57,6 +57,7 @@ void draw() {
       text("Biler i checkpoint 2: " + bilericheckpoint[1], 30, 420);
       text("Biler i checkpoint 3: " + bilericheckpoint[2], 30, 450);
       text("Biler i checkpoint 4: " + bilericheckpoint[3], 30, 480);
+      text("Totale point: " + (bilericheckpoint[0]+bilericheckpoint[1]+bilericheckpoint[2]+bilericheckpoint[3]), 30, 510);
       text("Mutationsprocent", 395, 50);
       text("Hastighed i rød og grøn", 660, 50);
       text("Sensor Længde", 1010, 50);
