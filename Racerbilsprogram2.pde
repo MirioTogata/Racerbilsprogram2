@@ -30,7 +30,7 @@ void setup() {
   SensorLengthslider = cp5.addSlider("SensorLength").setPosition(1000, 70).setRange(10, 60).setSize(200, 30).setColorCaptionLabel(1);
   resetButton = cp5.addButton("Reset").setValue(0).setPosition(40, 165).setSize(100, 50);
   endButton = cp5.addButton("Pause/Play").setValue(0).setPosition(180, 165).setSize(100, 50);
-  Tooltips = cp5.addTextarea("tooltips").setPosition(1250, 50).setSize(200, 700).setFont(createFont("arial", 18)).setLineHeight(30).setColor(color(0)).setColorBackground(color(250, 250, 50)).setColorForeground(color(255, 100));
+  Tooltips = cp5.addTextarea("tooltips").setPosition(1250, 50).setSize(300, 400).setFont(createFont("arial", 18)).setLineHeight(30).setColor(color(0)).setColorBackground(color(250, 250, 50)).setColorForeground(color(255, 100));
 
   Mutationslider.setVisible(false);
   Friktionslider.setVisible(false);
@@ -70,18 +70,6 @@ void draw() {
       }
     } else {
       SettingsScreen();
-    }
-    if (resetButton.isPressed()) {
-      neuralslider.setVisible(true);
-      bilslider.setVisible(true);
-      levetid.setVisible(true);
-      Mutationslider.setVisible(false);
-      Friktionslider.setVisible(false);
-      SensorLengthslider.setVisible(false);
-      resetButton.setVisible(false);
-      endButton.setVisible(false);
-      generationtal = 1;
-      stagePicked = false;
     }
   }
   Tooltips();
@@ -143,6 +131,18 @@ void mousePressed() {
       pause = false;
       time += millis()-pausetime;
     }
+  }
+  if (resetButton.isPressed()) {
+    Mutationslider.setVisible(false);
+    Friktionslider.setVisible(false);
+    SensorLengthslider.setVisible(false);
+    resetButton.setVisible(false);
+    endButton.setVisible(false);
+    neuralslider.setVisible(true);
+    bilslider.setVisible(true);
+    levetid.setVisible(true);
+    generationtal = 1;
+    stagePicked = false;
   }
 }
 
@@ -219,16 +219,16 @@ void checkpoints() {
 void Tooltips() {
   if (neuralslider.isMouseOver()) {
     Tooltips.setVisible(true);
-    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    Tooltips.setText("Den neurale varians styrer hvor store tallene i de neurale netværk er. Det neurale netværk styrer hvordan bilerne skal dreje ift. hvilken stimuli den får (fx. vægge eller terrain), så størrelsen af tallene indeni påvirker hvor stærkt de reagere til dets omgivelser. Altså vil en højere neural varians få bilerne til at dreje mere, mens en lavere vil få bilerne til at dreje mindre.");
   } else if (bilslider.isMouseOver()) {
     Tooltips.setVisible(true);
-    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    Tooltips.setText("Dette er antallet af biler styret af neurale netværk i simulationen. Et højere antal biler vil tage mere computerkraft, men vil også kunne lave bedre biler hurtigere og med større chance. Alså vil et større tal evt. gøre programmet langsommere, men det vil også gøre det lettere at få fremskridt.");
   } else if (levetid.isMouseOver()) {
     Tooltips.setVisible(true);
-    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    Tooltips.setText("Dette er hvor mange sekunder hver generation har til at nå checkpointsene før den nye generation laves. Altså vil en større værdi få programmet til at tage længere tid, men vil kunne vælge de næste generationer bedre og derfor får du bedre biler.");
   } else if (Mutationslider.isMouseOver()) {
     Tooltips.setVisible(true);
-    Tooltips.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    Tooltips.setText("Dette er hvor meget mutation der sker på bilerne mellem hver generation i procent. Med mere mutation, så kommer der mere tilfældighed i dine næste generationer. Altså vil et lavere tal gøre dine næste generationer mindre tilfældige, hvilket gør at du beholder mere af dine gamle biler, men det kan også gøre at du bliver fastlåst fra fremskridt.");
   } else if (Friktionslider.isMouseOver()) {
     Tooltips.setVisible(true);
     Tooltips.setText("Denne parameter bestemmer i hvor stor en grad bilerne bliver påvirket af henholdsvis det det grønne, og det røde terrain. Begge terrain giver en hastighedsændrene effekt imens bilerne er inde i feltet, og 4 sekunder efter bilerne har forladt feltet. Grøn øger hastigheden, og rød mindsker hastigheden.");
