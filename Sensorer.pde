@@ -2,10 +2,10 @@ class Sensorer {
   float sensorMag = 20;
   float sensorAngle = PI/12; 
   float[] sensors = new float[6];
-  PVector[] vectors = new PVector[7];
+  PVector[] vectors = new PVector[6];
 
   Sensorer() {
-    for (int i = 0; i < vectors.length-1; i++) {
+    for (int i = 0; i < vectors.length; i++) {
       vectors[i] = new PVector(0, sensorMag);
     }
   }
@@ -15,14 +15,13 @@ class Sensorer {
     PVector last = new PVector(vel.x, vel.y);
     last.normalize();
     last.mult(sensorMag);
-    for (int i = 0; i < vectors.length-1; i += 2) {
+    for (int i = 0; i < vectors.length; i += 2) {
       vectors[i].set(last);
       vectors[i].rotate(-sensorAngle);
       vectors[i+1].set(last);
       vectors[i+1].rotate(sensorAngle*i);
       last = vectors[i].copy();
     }
-    vectors[vectors.length-1] = vel.copy();
 
     for (int i = 0; i < sensors.length; i++) {
       color c = color(0);
@@ -42,7 +41,7 @@ class Sensorer {
   }
 
   void display(PVector pos) {
-    for (int i = 0; i < vectors.length-1; i++) {
+    for (int i = 0; i < vectors.length; i++) {
       color c = color(0);
       if (i > 1) {
         c = color(237, 28, 36);

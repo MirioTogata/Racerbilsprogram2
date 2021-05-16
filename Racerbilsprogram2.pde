@@ -37,16 +37,19 @@ void setup() {
   SensorLengthslider.setVisible(false);
   resetButton.setVisible(false);
   endButton.setVisible(false);
+  SettingsScreen();
 }
 
 void draw() {
   if (pause == false) {
-    background(0);
     textSize(35);
+    fill(0);
+    rect(1250,50,400,400);
     fill(255);
     text("Hover teksten for", 30, 50);
     text("at se mere", 30, 100);
     if (stagePicked) {
+      background(0);
       image(bane, 350, 100);
       checkpoints();
       textSize(25);
@@ -68,13 +71,12 @@ void draw() {
           bilSystemet.nextgeneration();
         }
       }
-    } else {
-      SettingsScreen();
     }
   }
   Tooltips();
 }
 void SettingsScreen() {
+  background(0);
   fill(0);
   rect(375, 120, 850, 100);
   fill(255);
@@ -142,6 +144,7 @@ void mousePressed() {
     bilslider.setVisible(true);
     levetid.setVisible(true);
     generationtal = 1;
+    SettingsScreen();
     stagePicked = false;
   }
 }

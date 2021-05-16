@@ -16,7 +16,7 @@ class SelveBil {
     bil.turn(neuralNet.output(sensor.sensors)); 
 
     for (int i = 0; i < checkpoints.length; i++) {
-      if (get((int)(bil.pos.x+sensor.vectors[6].x), (int)(bil.pos.y+sensor.vectors[6].y)) == color(225+i*10, 242, 0)) {
+      if (get((int)(bil.pos.x+bil.vel.x), (int)(bil.pos.y+bil.vel.y)) == color(225+i*10, 242, 0)) {
         if (checkpoints[i] == false) {
           points += 1+i;
           checkpoints[i] = true;
